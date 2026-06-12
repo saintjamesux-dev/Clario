@@ -22,7 +22,9 @@ export async function POST(request: NextRequest) {
     const result = await analyzeDesign(body);
 
     return NextResponse.json(result);
-  } catch {
-    return NextResponse.json({ error: "Analysis failed" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Analysis failed";
+    const status = message.includes("not configured") || message.includes("API key") ? 503 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
