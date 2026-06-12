@@ -1,4 +1,3 @@
-import { FREE_CRITIQUES_PER_DAY } from "@/lib/constants";
 import { Badge } from "./ui/Badge";
 
 interface HeroProps {
