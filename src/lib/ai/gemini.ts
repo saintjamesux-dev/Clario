@@ -2,7 +2,7 @@ import type { AnalyzeRequest, CritiqueResult } from "@/lib/types";
 import { SYSTEM_PROMPT, USER_PROMPT } from "./prompt";
 import { parseAIResponse } from "./parse";
 
-const MODELS = ["gemini-2.0-flash", "gemini-1.5-flash"] as const;
+const MODELS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-3.5-flash"] as const;
 
 function getApiKey(): string {
   const key =
