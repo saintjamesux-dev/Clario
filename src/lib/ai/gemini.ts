@@ -37,6 +37,11 @@ export async function analyzeWithGemini(request: AnalyzeRequest): Promise<Critiq
   throw lastError ?? new Error("Gemini analysis failed");
 }
 
+function normalizeMimeType(mime: string): string {
+  if (mime === "image/jpg") return "image/jpeg";
+  return mime;
+}
+
 async function callGemini(
   apiKey: string,
   model: string,
@@ -53,7 +58,7 @@ async function callGemini(
         parts: [
           {
             inline_data: {
-              mime_type: request.mimeType,
+              mime_type: normalizeMimeType(request.mimeType),
               data: request.imageBase64,
             },
           },

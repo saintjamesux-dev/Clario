@@ -66,7 +66,13 @@ export function ClarioApp() {
 
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
-        throw new Error(data.error || "Analysis failed. Please try again.");
+        const msg = data.error || "Analysis failed. Please try again.";
+        if (response.status === 503 && msg.includes("GEMINI_API_KEY")) {
+          throw new Error(
+            "AI is not configured yet. Add GEMINI_API_KEY in Vercel, then redeploy."
+          );
+        }
+        throw new Error(msg);
       }
 
       const data: CritiqueResult = await response.json();
